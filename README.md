@@ -6,11 +6,11 @@ The goal of this project is to create an application that servers static files t
 the static folder is for files that needs to be converted to html
 the public folder is for the files we want to serve.
 
-When in the directory you can use
+When in the directory you can start the server with the following command:
 ```
 npm start
 ```
-To start the server.
+
 
 This will run ```./util/setup.js``` to generate the html in ```./public/```
 and then start the server with ```node app.js```
