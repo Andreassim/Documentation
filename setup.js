@@ -1,13 +1,15 @@
 import fs from "fs";
+import { marked } from "marked";
 
 function createPage(page) {
     const navbar = fs.readFileSync("./static/html/components/navbar.html").toString()
 
-    const main = fs.readFileSync(page.pagePath).toString() || "Documentation";
+    const markdown = fs.readFileSync(page.pagePath).toString() || "Documentation";
+    const html = marked.parse(markdown);
 
     const template = fs.readFileSync("./static/html/template.html").toString()
     .replace("$TAB_TITLE", page.pageTitle || "Documentation")
-    .replace("$MAIN_CONTENT", main)
+    .replace("$MAIN_CONTENT", html)
     .replace("$NAV_BAR", navbar);
 
     fs.writeFileSync(`./public/${page.pageLink}`, template);
@@ -52,8 +54,7 @@ function setupPageInfoPerFile(files, fileSrc){
 }
 
 
-function createPagesFromDir() {
-    const fileSrc = "./static/markdown/";
+function createHTMLPagesFromDir(fileSrc) {
     const files = fs.readdirSync(fileSrc);
 
     const pages = setupPageInfoPerFile(files, fileSrc);
@@ -74,4 +75,4 @@ function createPagesFromDir() {
     createPage(index);
 }
 
-createPagesFromDir();
+createHTMLPagesFromDir("./static/markdown/");
