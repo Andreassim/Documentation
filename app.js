@@ -1,12 +1,18 @@
 import express from "express";
+import fs from "fs";
 const app = express();
 
 app.use(express.static('public'));
 
-app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/index.html")
-});
+let landingPage = fs.readdirSync("./public/")[0];
 
+app.get("/", (req, res) =>{
+    if(!landingPage){
+        res.status(404).send({message: "No page found!"})
+    }else{
+        res.redirect(`/${landingPage}`);
+    }
+});
 
 const PORT = 8080;
 app.listen(PORT, (error) => {
