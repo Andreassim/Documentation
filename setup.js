@@ -53,7 +53,6 @@ function setupPageInfoPerFile(files, fileSrc){
     return pages;
 }
 
-
 function createHTMLPagesFromDir(fileSrc) {
     const files = fs.readdirSync(fileSrc);
 
@@ -64,15 +63,6 @@ function createHTMLPagesFromDir(fileSrc) {
     pages.forEach(page => {
         createPage(page)
     })
-    
-    const index = {
-        pageName: "Frontpage",
-        pageLink: `/index.html`,
-        pageTitle: "Mandatory 1",
-        pagePath: `./static/html/frontpageContent.html`
-    }
-
-    createPage(index);
 }
 
 createHTMLPagesFromDir("./static/markdown/");
