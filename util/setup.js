@@ -65,4 +65,5 @@ function createHTMLPagesFromDir(fileSrc) {
     })
 }
 
+console.log("Setting up pages");
 createHTMLPagesFromDir("./static/markdown/");
