@@ -30,5 +30,3 @@ nodemon app.js
 
 The amount of pages depends on how many markdown files have been created in
 ```./static/markdown```
-
-TODO figure out a way to convert markdown to html and style it
