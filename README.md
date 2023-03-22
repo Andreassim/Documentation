@@ -12,15 +12,21 @@ npm start
 ```
 To start the server.
 
-This will run ```./util/setup.js``` to generate the html in ```./public```
+This will run ```./util/setup.js``` to generate the html in ```./public/```
 and then start the server with ```node app.js```
 
 Manually run it by first running
-```node ./util/setup.js```
+```
+node ./util/setup.js
+```
 and then running
-```node app.js```
-or
-```nodemon app.js```
+```
+node app.js
+```
+or if using nodemon
+```
+nodemon app.js
+```
 
 The amount of pages depends on how many markdown files have been created in
 ```./static/markdown```
