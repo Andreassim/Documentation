@@ -7,7 +7,9 @@ the static folder is for files that needs to be converted to html
 the public folder is for the files we want to serve.
 
 When in the directory you can use
-```npm start```
+```
+npm start
+```
 To start the server.
 
 This will run ```./util/setup.js``` to generate the html in ```./public```
