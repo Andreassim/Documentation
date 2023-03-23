@@ -1,7 +1,7 @@
 import fs from "fs";
 import { marked } from "marked";
 
-function renderPage(page, navbar) {
+function renderDocsPage(page, navbar) {
     const pageInfo = setupPageInfo(page)
     const markdown = fs.readFileSync(`./static/markdown/${page}.md`).toString();
     const mainHTML = marked.parse(markdown);
@@ -53,12 +53,12 @@ function setupPageInfo(file){
     const pageInfo = {
         pageName: file.slice(0,-3).replace("_", " "),
         pageLink: `${file.slice(0,-3)}`,
-        pageTitle: file.slice(0,-3).replace(/[0-9]/g, '').replace("_", ""),
+        pageTitle: file.replace(/[0-9]/g, '').replace("_", ""),
     }
     return pageInfo
 }
 
 export default {
-    renderPage,
+    renderDocsPage,
     renderNavbar
 }
