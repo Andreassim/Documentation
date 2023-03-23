@@ -1,32 +1,15 @@
 # Documentation
 
-The goal of this project is to create an application that servers static files though express.
+Express application created for serving documentation.
 
-
-the static folder is for files that needs to be converted to html
-the public folder is for the files we want to serve.
-
-When in the directory you can start the server with the following command:
+The documentation is writtin in markdown located here
 ```
-npm start
+./static/markdown
 ```
 
-
-This will run ```./util/setup.js``` to generate the html in ```./public/```
-and then start the server with ```node app.js```
-
-Manually run it by first running
+pages are rendered through a homemade template engine
+templates a located here
 ```
-node ./util/setup.js
-```
-and then running
-```
-node app.js
-```
-or if using nodemon
-```
-nodemon app.js
+./static/html
 ```
 
-The amount of pages depends on how many markdown files have been created in
-```./static/markdown```
