@@ -1,7 +1,7 @@
 import fs from "fs";
 import { marked } from "marked";
 
-function createPage(page) {
+function createHTMLfile(page) {
     const navbar = fs.readFileSync("./static/html/components/navbar.html").toString()
 
     const markdown = fs.readFileSync(page.pagePath).toString() || "Documentation";
@@ -20,7 +20,7 @@ function setupNavbar(pages){
 
     const htmlTemplate = (name, link) => { return `
         <li class="py-3 border-b-2 list-none cursor-pointer block hover:bg-slate-200 hover:text-slate-800">
-            <a class="h-full w-full inline-block" href="${link}">${name}</a>
+            <a class="h-full w-full inline-block" href="/docs/${link}">${name}</a>
         </li>
         `
     }
@@ -43,7 +43,7 @@ function setupPageInfoPerFile(files, fileSrc){
     files.forEach(file => {
         let page = {
             pageName: file.slice(0,-3).replace("_", " "),
-            pageLink: `/${file.slice(0,-3)}.html`,
+            pageLink: `${file.slice(0,-3)}`,
             pageTitle: file.slice(0,-3).replace(/[0-9]/g, '').replace("_", ""),
             pagePath: fileSrc + file
         }
@@ -61,7 +61,7 @@ function createHTMLPagesFromDir(fileSrc) {
     setupNavbar(pages);
     
     pages.forEach(page => {
-        createPage(page)
+        createHTMLfile(page)
     })
 }
 
