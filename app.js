@@ -1,3 +1,4 @@
+import { log } from "console";
 import express from "express";
 import fs from "fs";
 import templateEngine from "./util/templateEngine.js";
@@ -6,20 +7,14 @@ const app = express();
 app.use(express.static('public'));
 
 const navbar = templateEngine.renderNavbar("./static/markdown")
+let pages = fs.readdirSync("./static/markdown");
 
-
-let landingPage = fs.readdirSync("./public/")[0];
-
-app.get("/", (req, res) =>{
-    if(!landingPage){
-        res.status(404).send({message: "No page found!"})
-    }else{
-        res.redirect(`/${landingPage}`);
-    }
-});
-
+// TODO Frontpage
 
 app.get("/docs/:filename", (req, res) =>{
+    if(!pages.find(filename => filename == `${req.params.filename}.md`)){
+        return res.status(404).send({message: "Page not found"})
+    }
     res.send(templateEngine.renderDocsPage(`${req.params.filename}`, navbar));
 });
 
