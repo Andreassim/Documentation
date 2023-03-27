@@ -51,7 +51,7 @@ function setupPageInfoPerFile(files){
 
 function setupPageInfo(file){
     const pageInfo = {
-        pageName: file.slice(0,-3).replace(/_/g, " "),
+        pageName: file.slice(0,-3).replace(/_/g, " ").replace(/[0-9]/g, ''),
         pageLink: `${file.slice(0,-3).replace(/ /g, "_")}`,
         pageTitle: file.replace(/[0-9]/g, '').replace(/_/g, " ")
     }
