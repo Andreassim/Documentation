@@ -1,4 +1,3 @@
-import { log } from "console";
 import express from "express";
 import fs from "fs";
 import templateEngine from "./util/templateEngine.js";
@@ -9,7 +8,9 @@ app.use(express.static('public'));
 const navbar = templateEngine.renderNavbar("./static/markdown")
 let pages = fs.readdirSync("./static/markdown");
 
-// TODO Frontpage
+app.get("/", (req, res) => {
+    res.redirect(`/docs/${pages[0].slice(0,-3)}`)
+})
 
 app.get("/docs/:filename", (req, res) =>{
     if(!pages.find(filename => filename == `${req.params.filename}.md`)){
@@ -18,7 +19,7 @@ app.get("/docs/:filename", (req, res) =>{
     res.send(templateEngine.renderDocsPage(`${req.params.filename}`, navbar));
 });
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, (error) => {
     if (error) {
         console.log(error);

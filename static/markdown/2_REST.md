@@ -1,7 +1,16 @@
 # REST
 
-REST is fun
+A REST API is stateless, meaning that every transaction is isolated and not dependendant on previous transactions a client has made.
 
+The response is usally in JSON but could also be in other formats like html or xml
+
+
+## REST API Example
+
+Theres is a convention for the order of the requests.
+It goes as follows: GET, POST, PUT, PATCH, DELETE
+
+Here is an example with a song api:
 
 |HTTP Request   |Endpoint   |Description  |Example|
 |---|---|---|---|
