@@ -139,7 +139,7 @@ app.delete('/birds/:id', (req, res) => {
 
 By default no files are served staticly with express and we need to define what needs to be served.
 
-Files that should be served staticly includes complete html files, css files and js files.
+Files that should be served staticly and availble publicly includes html files, css files and js files.
 
 To serve static files we need load some middleware. here we use ```express.static()```:
 We load middleware with ```.use()```
@@ -191,7 +191,7 @@ app.listen(PORT, (error) => {
 ```
 if there is an error we log the error to the terminal, else we log what port we are running on.
 
-The port is usually set in the end of out file.
+The port is usually set in the end of the file.
 
 
 
