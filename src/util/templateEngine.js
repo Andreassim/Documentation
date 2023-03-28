@@ -4,20 +4,24 @@ import { marked } from "marked";
 function renderDocsPage(page, navbar) {
     const pageInfo = setupPageInfo(page)
     const markdown = fs.readFileSync(`./src/markdown/${page}.md`).toString();
-    const mainHTML = marked.parse(markdown);
+    const mainContent = marked.parse(markdown);
 
-    const assembledPage = fs.readFileSync("./src/html/template.html").toString()
-    .replace("$TAB_TITLE", pageInfo.pageTitle || "Documentation")
-    .replace("$MAIN_CONTENT", mainHTML)
+    const renderedPage = fs.readFileSync("./src/html/template.html").toString()
+    .replace("$TAB_TITLE", pageInfo.pageTitle)
+    .replace("$MAIN_CONTENT", mainContent)
     .replace("$NAV_BAR", navbar);
 
-    return assembledPage;
+    return renderedPage;
 }
 
 function renderNavbar(fileSrc){
     const files = fs.readdirSync(fileSrc);
-    const pages = setupPageInfoPerFile(files, fileSrc);
-
+    let pages = [];
+    
+    files.forEach(file => {
+        pages.push(setupPageInfo(file));
+    });
+    
     const navbarTemplate = "./src/html/navTemplate.html";
 
     const linkTemplate = (name, link) => { return `
@@ -37,16 +41,6 @@ function renderNavbar(fileSrc){
 
     return navbar;
 
-}
-
-function setupPageInfoPerFile(files){
-    let pages = [];
-
-    files.forEach(file => {
-        pages.push(setupPageInfo(file));
-    });
-
-    return pages;
 }
 
 function setupPageInfo(file){
