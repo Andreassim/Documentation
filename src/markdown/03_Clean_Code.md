@@ -8,8 +8,10 @@ If code adheres to the convention and you know the convention you can make assum
 Code conventions are created for setting up a common ground so that the next developer looking at the code can follow what was created.
 An example could be setting up the REST API endpoints in the correct order. 
 
-Naming conventions vary for different languages. 
+Naming conventions vary for different languages:
+
 Javascript uses ```camelCase``` for variables and functions
+
 Python uses lowercase single letters and underscore for space in variables and functions.
 
 
