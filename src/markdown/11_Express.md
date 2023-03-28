@@ -9,6 +9,7 @@ it can be installed through npm with the following command:
 ``` bash
 $ npm install express
 ```
+When using express our usual entrypoint (start of execution) to the app is app.js in the root directory.
 
 ## Routing
 
@@ -161,8 +162,37 @@ app.use(express.static('public'))
 
 ```
 
-
+Say we have a css file located in /public/assets/file.css
+the file can be accessed at http://hostname/assests/file.css
 
 
 ## Port
+
+To define which port express should listen to we we use: 
+
+``` javascript
+
+app.listen(<port>)
+
+```
+
+The port is parsed in as an argument. 
+
+here is an example where we use an enviromental variable or default to 8080
+
+``` javascript 
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, (error) => {
+    if (error) {
+        console.log(error);
+    }
+    console.log("Running on port: ", PORT);
+});
+```
+if there is an error we log the error to the terminal, else we log what port we are running on.
+
+The port is usually set in the end of out file.
+
+
+
 

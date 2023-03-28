@@ -1,6 +1,6 @@
 import express from "express";
 import fs from "fs";
-import templateEngine from "./util/templateEngine.js";
+import templateEngine from "./src/util/templateEngine.js";
 const app = express();
 
 app.use(express.static('public'));
