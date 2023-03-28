@@ -3,10 +3,10 @@ import { marked } from "marked";
 
 function renderDocsPage(page, navbar) {
     const pageInfo = setupPageInfo(page)
-    const markdown = fs.readFileSync(`./static/markdown/${page}.md`).toString();
+    const markdown = fs.readFileSync(`./src/markdown/${page}.md`).toString();
     const mainHTML = marked.parse(markdown);
 
-    const assembledPage = fs.readFileSync("./static/html/template.html").toString()
+    const assembledPage = fs.readFileSync("./src/html/template.html").toString()
     .replace("$TAB_TITLE", pageInfo.pageTitle || "Documentation")
     .replace("$MAIN_CONTENT", mainHTML)
     .replace("$NAV_BAR", navbar);
@@ -18,7 +18,7 @@ function renderNavbar(fileSrc){
     const files = fs.readdirSync(fileSrc);
     const pages = setupPageInfoPerFile(files, fileSrc);
 
-    const navbarTemplate = "./static/html/navTemplate.html";
+    const navbarTemplate = "./src/html/navTemplate.html";
 
     const linkTemplate = (name, link) => { return `
         <li class="py-3 border-b-2 list-none cursor-pointer block hover:bg-slate-200 hover:text-slate-800">

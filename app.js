@@ -5,8 +5,8 @@ const app = express();
 
 app.use(express.static('public'));
 
-const navbar = templateEngine.renderNavbar("./static/markdown")
-let pages = fs.readdirSync("./static/markdown");
+const navbar = templateEngine.renderNavbar("./src/markdown")
+let pages = fs.readdirSync("./src/markdown");
 
 app.get("/", (req, res) => {
     res.redirect(`/docs/${pages[0].slice(0,-3)}`)
