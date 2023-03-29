@@ -14,6 +14,29 @@ function renderDocsPage(page, navbar) {
     return renderedPage;
 }
 
+function renderEditablePage(page, navbar) {
+    const pageInfo = setupPageInfo(page)
+    const markdown = fs.readFileSync(`./src/markdown/${page}.md`).toString();
+
+    const editableTemplate = `
+    <div>
+        <form id="edit-page-form" action="/docs/${page}" method="POST">
+            <div class="py-2 h-14 w-20">
+                <button class=" w-full h-full border-2 text-white border-slate-500 bg-gradient-to-tl from-slate-800 to-slate-600 hover:bg-gradient-to-tl hover:from-slate-400 hover:to-slate-800 hover:border-slate-800">Save</button>
+            </div>
+            <textarea name="pageContent" class="w-full h-screen bg-slate-600 text-white" form="edit-page-form">${markdown}</textarea>
+        </form>
+    </div>
+    `;
+
+    const renderedPage = fs.readFileSync("./src/html/template.html").toString()
+    .replace("$TAB_TITLE", pageInfo.pageTitle)
+    .replace("$MAIN_CONTENT", editableTemplate)
+    .replace("$NAV_BAR", navbar);
+
+    return renderedPage;
+}
+
 function renderNavbar(fileSrc){
     const files = fs.readdirSync(fileSrc);
     let pages = [];
@@ -52,7 +75,12 @@ function setupPageInfo(file){
     return pageInfo
 }
 
+function editPage() {
+
+}
+
 export default {
     renderDocsPage,
-    renderNavbar
+    renderNavbar,
+    renderEditablePage
 }
