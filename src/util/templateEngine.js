@@ -1,12 +1,14 @@
 import fs from "fs";
+import {promises as fsp} from "fs";
 import { marked } from "marked";
 
-function renderDocsPage(page, navbar) {
+async function renderDocsPage(page, navbar) {
     const pageInfo = setupPageInfo(page)
-    const markdown = fs.readFileSync(`./src/markdown/${page}.md`).toString();
-    const mainContent = marked.parse(markdown);
+    const markdown = await fsp.readFile(`./src/markdown/${page}.md`);
+    const mainContent = marked.parse(markdown.toString());
 
-    const renderedPage = fs.readFileSync("./src/html/template.html").toString()
+    const template = await fsp.readFile("./src/html/template.html");
+    const renderedPage = template.toString()
     .replace("$TAB_TITLE", pageInfo.pageTitle)
     .replace("$MAIN_CONTENT", mainContent)
     .replace("$NAV_BAR", navbar);
@@ -14,9 +16,9 @@ function renderDocsPage(page, navbar) {
     return renderedPage;
 }
 
-function renderEditablePage(page, navbar) {
+async function renderEditablePage(page, navbar) {
     const pageInfo = setupPageInfo(page)
-    const markdown = fs.readFileSync(`./src/markdown/${page}.md`).toString();
+    const markdown = await fsp.readFile(`./src/markdown/${page}.md`);
 
     const editableTemplate = `
     <div>
@@ -24,12 +26,13 @@ function renderEditablePage(page, navbar) {
             <div class="py-2 h-14 w-20">
                 <button class=" w-full h-full border-2 text-white border-slate-500 bg-gradient-to-tl from-slate-800 to-slate-600 hover:bg-gradient-to-tl hover:from-slate-400 hover:to-slate-800 hover:border-slate-800">Save</button>
             </div>
-            <textarea name="pageContent" class="w-full h-screen bg-slate-600 text-white" form="edit-page-form">${markdown}</textarea>
+            <textarea name="pageContent" class="w-full h-screen bg-slate-600 text-white" form="edit-page-form">${markdown.toString()}</textarea>
         </form>
     </div>
     `;
 
-    const renderedPage = fs.readFileSync("./src/html/template.html").toString()
+    const template = await fsp.readFile("./src/html/template.html");
+    const renderedPage = template.toString()
     .replace("$TAB_TITLE", pageInfo.pageTitle)
     .replace("$MAIN_CONTENT", editableTemplate)
     .replace("$NAV_BAR", navbar);

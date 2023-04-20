@@ -25,16 +25,18 @@ app.get("/", (req, res) => {
     res.redirect(`/docs/${pages[0].slice(0,-3)}`)
 })
 
-app.get("/docs/:filename", (req, res) =>{
+app.get("/docs/:filename", async (req, res) =>{
     if(!pages.find(filename => filename == `${req.params.filename}.md`)){
         return res.status(404).send({message: "Page not found"})
     }
     if(req.query.edit === 'true'){
         if(req.cookies.token === verySecureToken){
-            return res.send(templateEngine.renderEditablePage(`${req.params.filename}`, navbar))                      
+            const renderedPage = await templateEngine.renderEditablePage(`${req.params.filename}`, navbar)
+            return res.send(renderedPage)                      
         }
     }
-    res.send(templateEngine.renderDocsPage(`${req.params.filename}`, navbar));
+    const renderedPage = await templateEngine.renderDocsPage(`${req.params.filename}`, navbar);
+    res.send(renderedPage);
 });
 
 app.post("/docs/:filename", (req, res) =>{
